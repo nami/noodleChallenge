@@ -5,7 +5,7 @@
 ## Description
 This project demonstrates how you can use HTML Canvas to build an image of bowl of noodles. This was part of a challenge for an internship application.
 
-#### Requirements
+### Challenge Requirements
 * All empty bowl space must be filled with noodles
 * Noodle curves must join smoothly
 * Noodles must meet the bowl edge at a tangent
@@ -13,6 +13,7 @@ This project demonstrates how you can use HTML Canvas to build an image of bowl 
 * Noodles must be even width
 * Noodles cannot bend below a minimum radius
 
+#### Additionally
 The image must be generated using formulas with the following parameters:
 * width
 * minimum length
