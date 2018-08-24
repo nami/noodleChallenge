@@ -1,0 +1,273 @@
+<html>
+<head>
+<script>
+window.onload=function(){
+var circle_center = 200,
+    radious = 180,
+    width = 8,
+    maxarc = 5.8, 
+    minarc = 1; 
+function center(){
+    var R_c = ((radious-10*width) * Math.random()+4*width);
+    var angle_c = Math.random() * Math.PI * 2;
+    var x_center = circle_center + R_c * Math.cos(angle_c);
+    var y_center = circle_center + R_c * Math.sin(angle_c);
+		return {x_center: x_center, y_center: y_center, R_c: R_c};
+}    
+function randomPoint() {
+    var R = ((0.5*r-3*width) * Math.random() + (0.5*r+width));
+    var angle1 = Math.random() * Math.PI * 2;
+    var x1 = x_c + R * Math.cos(angle1);
+    var y1 = y_c + R * Math.sin(angle1);
+    var angle2 = Math.random() * Math.PI * 2;
+    var x2 = x_c + R * Math.cos(angle2);
+    var y2 = y_c + R * Math.sin(angle2);
+    var angle3 = angle1+2*Math.PI/3;//Math.random()*Math.PI*2;
+    var x3 = x_c + 0.8*R * Math.cos(angle3);
+    var y3 = y_c + 0.8*R * Math.sin(angle3);
+    var angle4 = angle2+Math.PI/3;//Math.random()*Math.PI*2;
+    var x4 = x_c + 0.8*R * Math.cos(angle4);
+    var y4 = y_c + 0.8*R * Math.sin(angle4);   
+		var angle5 = angle1+4*Math.PI/3;//Math.random()*Math.PI*2;
+    var x5 = x_c + 0.9*R * Math.cos(angle5);
+    var y5 = y_c + 0.9*R * Math.sin(angle5);
+		var angle6 = angle2+4*Math.PI/3;//Math.random()*Math.PI*2;
+    var x6 = x_c + 0.9*R * Math.cos(angle6);
+    var y6 = y_c + 0.9*R * Math.sin(angle6);
+    return {R: R, angle1: angle1, x1: x1, y1: y1, angle2: angle2, 
+    x2: x2, y2: y2, angle3: angle3, x3: x3, y3: y3, angle4: angle4, 
+    x4: x4, y4: y4, angle5: angle5, x5: x5, y5: y5, angle6: angle6, 
+    x6: x6, y6: y6};
+}
+function randomEnd(p){
+    var e1 = (maxarc-p.angle1-minarc)*Math.random()+p.angle1+minarc;
+    var e2 = (maxarc-p.angle2-minarc)*Math.random()+p.angle2+minarc;
+    var e3 = (maxarc-p.angle3-minarc)*Math.random()+p.angle3+minarc;
+    var e4 = (maxarc-p.angle4-minarc)*Math.random()+p.angle4+minarc;
+    var e5 = (maxarc-p.angle5-minarc)*Math.random()+p.angle5+minarc;
+    var e6 = (maxarc-p.angle6-minarc)*Math.random()+p.angle6+minarc;
+    return {e1: e1, e2: e2, e3: e3, e4: e4, e5: e5, e6: e6}
+}
+function noodles() {
+    ctx.beginPath();
+    ctx.arc(p.x1, p.y1, r-p.R, p.angle1+Math.PI, e.e1);
+    ctx.arc(p.x1, p.y1, r-p.R-width, e.e1, p.angle1+Math.PI, true);
+    ctx.arc(x_c, y_c, 2*p.R-r+width, p.angle1, p.angle2);
+    ctx.arc(p.x2, p.y2, r-p.R-width, p.angle2+Math.PI, e.e2, true);
+    ctx.arc(p.x2, p.y2, r-p.R, e.e2, p.angle2+Math.PI);
+    ctx.arc(x_c, y_c, 2*p.R-r, p.angle2, p.angle1,true); 
+		ctx.lineWidth="2";
+    ctx.closePath();
+    ctx.fillStyle = "rgb(255, 255, 255)";//RED
+    ctx.fill();
+    ctx.stroke();
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.beginPath();
+    ctx.arc(p.x1, p.y1, r-p.R-width, p.angle1+Math.PI, e.e1);
+    ctx.arc(p.x1, p.y1, r-p.R-2*width, e.e1, p.angle1+Math.PI, true);
+    ctx.arc(x_c, y_c, 2*p.R-r+2*width, p.angle1, p.angle2);
+    ctx.arc(p.x2, p.y2, r-p.R-2*width, p.angle2+Math.PI, e.e2, true);
+    ctx.arc(p.x2, p.y2, r-p.R-width, e.e2, p.angle2+Math.PI);
+    ctx.arc(x_c, y_c, 2*p.R-r+width, p.angle2, p.angle1,true); 
+		ctx.lineWidth="2";
+    ctx.closePath();
+    ctx.fillStyle = "rgb(255, 255, 255)";//RED
+    ctx.fill();
+    ctx.stroke();
+
+} 
+function noodles1() {
+    ctx.beginPath();
+    ctx.arc(p.x3, p.y3, r-0.8*p.R, p.angle3+Math.PI, e.e3);
+    ctx.arc(p.x3, p.y3, r-0.8*p.R-width, e.e3, p.angle3+Math.PI, true);
+    ctx.arc(x_c, y_c, 2*0.8*p.R-r+width, p.angle3, p.angle4);
+    ctx.arc(p.x4, p.y4, r-0.8*p.R-width, p.angle4+Math.PI, e.e4, true);
+    ctx.arc(p.x4, p.y4, r-0.8*p.R, e.e4, p.angle4+Math.PI);
+    ctx.arc(x_c, y_c, 2*0.8*p.R-r, p.angle4, p.angle3,true); 
+		ctx.lineWidth="2";
+    ctx.closePath();
+    ctx.fillStyle = "rgb(255, 255, 255)";//GREEN
+    ctx.fill();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(p.x3, p.y3, r-0.8*p.R-width, p.angle3+Math.PI, e.e3);
+    ctx.arc(p.x3, p.y3, r-0.8*p.R-2*width, e.e3, p.angle3+Math.PI, true);
+    ctx.arc(x_c, y_c, 2*0.8*p.R-r+2*width, p.angle3, p.angle4);
+    ctx.arc(p.x4, p.y4, r-0.8*p.R-2*width, p.angle4+Math.PI, e.e4, true);
+    ctx.arc(p.x4, p.y4, r-0.8*p.R-width, e.e4, p.angle4+Math.PI);
+    ctx.arc(x_c, y_c, 2*0.8*p.R-r+width, p.angle4, p.angle3,true); 
+		ctx.lineWidth="1.5";
+    ctx.closePath();
+    ctx.fillStyle = "rgb(255, 255, 255)";//GREEN
+    ctx.fill();
+    ctx.stroke();
+    ctx.globalCompositeOperation = 'destination-over';
+} 
+function noodles2() {
+    ctx.beginPath();
+    ctx.arc(p.x5, p.y5, r-0.9*p.R, p.angle5+Math.PI, e.e5);
+    ctx.arc(p.x5, p.y5, r-0.9*p.R-width, e.e5, p.angle5+Math.PI, true);
+    ctx.arc(x_c, y_c, 2*0.9*p.R-r+width, p.angle5, p.angle6);
+    ctx.arc(p.x6, p.y6, r-0.9*p.R-width, p.angle6+Math.PI, e.e6, true);
+    ctx.arc(p.x6, p.y6, r-0.9*p.R, e.e6, p.angle6+Math.PI);
+    ctx.arc(x_c, y_c, 2*0.9*p.R-r, p.angle6, p.angle5,true); 
+		ctx.lineWidth="2";
+    ctx.closePath();
+    ctx.fillStyle = "rgb(255, 255, 255)";//BLUE
+    ctx.fill();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(p.x5, p.y5, r-0.9*p.R-width, p.angle5+Math.PI, e.e5);
+    ctx.arc(p.x5, p.y5, r-0.9*p.R-2*width, e.e5, p.angle5+Math.PI, true);
+    ctx.arc(x_c, y_c, 2*0.9*p.R-r+2*width, p.angle5, p.angle6);
+    ctx.arc(p.x6, p.y6, r-0.9*p.R-2*width, p.angle6+Math.PI, e.e6, true);
+    ctx.arc(p.x6, p.y6, r-0.9*p.R-width, e.e6, p.angle6+Math.PI);
+    ctx.arc(x_c, y_c, 2*0.9*p.R-r+width, p.angle6, p.angle5,true); 
+		ctx.lineWidth="1.5";
+    ctx.closePath();
+    ctx.fillStyle = "rgb(255, 255, 255)";//BLUE
+    ctx.fill();
+    ctx.stroke();
+    ctx.globalCompositeOperation = 'destination-over';
+} 
+
+function noodles2no2() {
+    ctx.beginPath();
+    ctx.arc(p.x5, p.y5, r-0.9*p.R, p.angle5+Math.PI, e.e5);
+    ctx.arc(p.x5, p.y5, r-0.9*p.R-width, e.e5, p.angle5+Math.PI, true);
+    ctx.arc(x_c, y_c, 2*0.9*p.R-r+width, p.angle5, p.angle6);
+    ctx.arc(p.x6, p.y6, r-0.9*p.R-width, p.angle6+Math.PI, e.e6, true);
+    ctx.arc(p.x6, p.y6, r-0.9*p.R, e.e6, p.angle6+Math.PI);
+    ctx.arc(x_c, y_c, 2*0.9*p.R-r, p.angle6, p.angle5,true); 
+		ctx.lineWidth="2";
+    ctx.closePath();
+    ctx.fillStyle = "rgb(255, 255, 255)";//BLUE
+    ctx.fill();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(p.x5, p.y5, r-0.9*p.R-width, p.angle5+Math.PI, e.e5);
+    ctx.arc(p.x5, p.y5, r-0.9*p.R-2*width, e.e5, p.angle5+Math.PI, true);
+    ctx.arc(x_c, y_c, 2*0.9*p.R-r+2*width, p.angle5, p.angle6);
+    ctx.arc(p.x6, p.y6, r-0.9*p.R-2*width, p.angle6+Math.PI, e.e6, true);
+    ctx.arc(p.x6, p.y6, r-0.9*p.R-width, e.e6, p.angle6+Math.PI);
+    ctx.arc(x_c, y_c, 2*0.9*p.R-r+width, p.angle6, p.angle5,true); 
+		ctx.lineWidth="2";
+    ctx.closePath();
+    ctx.fillStyle = "rgb(255, 255, 255)";//BLUE
+    ctx.fill();
+    ctx.stroke();
+    ctx.globalCompositeOperation = 'destination-out';
+} 
+function length(p,e){
+    var length1 = (r-p.R)*(e.e1-p.angle1+Math.PI)+(2*p.R-r)*(e.e1-e.e2)+(r-p.R)*(e.e2-p.angle2+Math.PI);
+    var length2 = (r-0.8*p.R)*(e.e3-p.angle3+Math.PI)+(2*0.8*p.R-r)*(e.e3-e.e4)+(r-0.8*p.R)*(e.e4-p.angle4+Math.PI);
+    var length3 = (r-0.9*p.R)*(e.e5-p.angle5+Math.PI)+(2*0.9*p.R-r)*(e.e5-e.e6)+(r-0.9*p.R)*(e.e6-p.angle6+Math.PI);
+    if(length1>=length2&&length2>=length3)		 {	var max=length1; var min=length3; }
+    else if(length1>=length2&&length3>=length2){	var max=length1; var min=length2; }
+    else if(length2>=length1&&length1>=length3){	var max=length2; var min=length3; }
+    else if(length2>=length1&&length3>=length1){	var max=length2; var min=length1; }
+    else if(length3>=length1&&length1>=length2){	var max=length3; var min=length2; }
+    else  																		 {	var max=length3; var min=length1; }
+    return {max: max, min: min}
+}
+function bendradius(p,e){
+    var bendradius1 = 0.8*(r-p.R);
+    var bendradius2 = 0.8*(2*p.R-r);
+    if(bendradius1>=bendradius2)		 {	var minbend=bendradius2; }
+    else    												 {	var minbend=bendradius1; }
+    return minbend;
+}
+function distance(p){
+    return Math.pow(p.x1-p.x2, 2)+Math.pow(p.y1-p.y2, 2)-Math.pow(2*(r-p.R+width), 2);
+}
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(200, 200, 190, 0, 2*Math.PI+1);
+		ctx.lineWidth="3";
+    ctx.closePath();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(200, 200, 180, 0, 2*Math.PI+1);
+		ctx.lineWidth="3";
+    ctx.closePath();
+    ctx.stroke();
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var x_c = 200;
+var y_c = 220;
+var r = 150;
+var points = 0;
+while ( points < 100 ) {
+var p = randomPoint();
+var e = randomEnd(p);
+var d = distance(p);
+var l = length(p,e);
+var m = bendradius(p,e);
+if(d>0.1&&l.max<=400&&l.min>10&&m>5){
+        noodles();
+     noodles2no2();
+        noodles1();
+        noodles2();
+         noodles1();
+        points++;
+    }
+}
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var x_c = circle_center;
+var y_c = circle_center;
+var r = radious;
+var points = 0;
+while ( points < 100 ) {
+var p = randomPoint();
+var e = randomEnd(p);
+var d = distance(p);
+var l = length(p,e);
+var m = bendradius(p,e);
+if(d>0.1&&l.max<=400&&l.min>10&&m>5){
+        noodles();
+     noodles2no2();
+        noodles1();
+        noodles2();
+         noodles1();
+        points++;
+    }
+}
+var circles = 0;
+while ( circles < 100 ){
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var points = 0;
+var small = center();
+var x_c = small.x_center;
+var y_c = small.y_center;
+var r = radious-small.R_c;
+while ( points < 100 ) {
+var p = randomPoint();
+var e = randomEnd(p);
+var d = distance(p);
+var l = length(p,e);
+var m = bendradius(p,e);
+if(d>0.1&&l.max<=400&&l.min>10&&m>5){
+        noodles();
+     noodles2no2();
+        noodles1();
+        noodles2();
+         noodles1();
+				points++;
+    }
+}
+circles++;
+}
+
+}
+</script>
+</head>
+<body>
+  <canvas width=400 height=400 id=canvas></canvas>
+  <p>Width: 8 ,  Minimum Length: 10</p>
+  <p>Maximum Length: 400 , Minimum bend radius: 5</p>
+  <p>Maximum arc angle: 5.8 radian, Minimum arc angle: 1 radian</p>
+</body>
+</html>
